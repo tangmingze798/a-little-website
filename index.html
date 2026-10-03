@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>智研 · 考研刷题 | 把每一道题，刷成上岸底气</title>
+  <meta name="description" content="智研考研刷题 —— 海量题库、智能组卷、错题本、进度追踪。小程序正在筹备中，敬请期待。" />
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --ink: #1f2a44;
+      --muted: #64748b;
+      --brand: #2563eb;
+      --brand2: #7c3aed;
+      --line: #e6eaf2;
+      --shadow: 0 10px 30px rgba(31, 42, 68, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    a { color: var(--brand); text-decoration: none; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+      color: #fff;
+      padding: 90px 20px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 45%),
+                  radial-gradient(circle at 80% 30%, rgba(255,255,255,0.12), transparent 40%);
+      pointer-events: none;
+    }
+    .hero .inner { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-size: clamp(30px, 6vw, 52px);
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+    .hero p {
+      font-size: clamp(16px, 2.6vw, 20px);
+      opacity: 0.92;
+      max-width: 640px;
+      margin: 0 auto 32px;
+    }
+    .cta {
+      display: inline-block;
+      background: #fff;
+      color: var(--brand);
+      font-weight: 700;
+      padding: 14px 34px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,0,0,0.22); }
+
+    /* Sections */
+    .section { max-width: 1080px; margin: 0 auto; padding: 70px 20px; }
+    .section h2 {
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .section .sub {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 44px;
+    }
+
+    /* Feature grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 22px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      transition: transform .15s ease;
+    }
+    .card:hover { transform: translateY(-4px); }
+    .card .icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #eef2ff, #f3e8ff);
+    }
+    .card h3 { font-size: 18px; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 15px; }
+
+    /* Mini program */
+    .mp {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+      padding: 50px 40px;
+    }
+    .mp .qr {
+      flex: 0 0 auto;
+      width: 180px; height: 180px;
+      border-radius: 16px;
+      border: 2px dashed var(--brand);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--brand);
+      font-size: 14px;
+      text-align: center;
+      background: #f8faff;
+      margin: 0 auto;
+    }
+    .mp .txt { flex: 1 1 320px; }
+    .mp .txt h3 { font-size: 24px; margin-bottom: 12px; }
+    .mp .txt p { color: var(--muted); margin-bottom: 18px; }
+    .tag {
+      display: inline-block;
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      background: #0f172a;
+      color: #cbd5e1;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 14px;
+    }
+    footer a { color: #93c5fd; }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    @media (max-width: 600px) {
+      .section { padding: 50px 16px; }
+      .mp { padding: 36px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="inner">
+      <span class="badge">智研 · 考研学习工具</span>
+      <h1>把每一道题，刷成你的上岸底气</h1>
+      <p>海量题库 · 智能组卷 · 错题复盘 · 进度可见。智研，陪你走完考研的每一天。</p>
+      <a class="cta" href="#miniprogram">查看小程序</a>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2>为什么选择智研</h2>
+    <p class="sub">用更聪明的方式刷题，把时间花在刀刃上</p>
+    <div class="grid">
+      <div class="card reveal">
+        <div class="icon">📚</div>
+        <h3>海量题库</h3>
+        <p>覆盖公共课与专业课，历年真题 + 模拟题持续更新，想刷什么有什么。</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon">🎯</div>
+        <h3>智能组卷</h3>
+        <p>根据薄弱点自动出题，精准打击弱项，告别盲目刷题。</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon">📝</div>
+        <h3>错题本</h3>
+        <p>自动归集错题，按知识点分类，复习不重不漏，效率翻倍。</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon">📈</div>
+        <h3>进度追踪</h3>
+        <p>每日正确率、学习时长一目了然，看得见的上岸路。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="miniprogram">
+    <h2>小程序 · 即将上线</h2>
+    <p class="sub">随时随地刷题，把碎片时间用起来</p>
+    <div class="mp">
+      <div class="qr">小程序码<br/>占位图<br/>（待生成）</div>
+      <div class="txt">
+        <h3>智研考研刷题 小程序</h3>
+        <p>微信搜一搜、扫一扫即可进入。手机端轻量体验，与网页端数据互通。</p>
+        <span class="tag">后端筹备中 · 敬请期待</span>
+        <p style="margin-top:18px">合作 / 反馈：<a href="mailto:hi@guanhe1001.asia">hi@guanhe1001.asia</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 智研 · 考研刷题 &nbsp;|&nbsp; <a href="https://guanhe1001.asia">guanhe1001.asia</a></p>
+    <p style="margin-top:8px; opacity:.7">本网站由 Cloudflare Pages 免费托管，无需自建服务器。</p>
+  </footer>
+
+  <script>
+    // 滚动渐入
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.15 });
+    els.forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
